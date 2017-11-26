@@ -10,11 +10,12 @@ def fit_model(x ,y, ey, p0, model):
     # calculate error on parameters
     perr = np.sqrt(np.diag(pcov))
     
-    # calculate chi sq value
+    # calculate red chi sq value
     r = np.array([yi - model(xi, *popt) for (xi, yi) in zip(x, y)])
     chisq = sum((r / ey)**2)
-    
-    return popt, perr, chisq
+    redchisq = chisq/(len(x) - len(p0))
+
+    return popt, perr, redchisq
 
 def init_plot():
     plt.figure(figsize=(8.6,7))
